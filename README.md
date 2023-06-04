@@ -10,10 +10,8 @@
 在训练集中，标签0和1的比例是0.46: 0.57，是相对平均的。
 
 三、	解题步骤
-我们有两份代码。代码一利用了预训练模型；代码二我们尝试尽量不用现成的库去解决这个问题。
 
-代码一
-在代码一中，我们用预训练模型bert-base-uncased，在尾端接上一层全连接层作为输出层。在此之前，我们试过bert的一系列模型，包括bert-base-cased, bert-large-uncased等，结果是bert-base-uncased是最有效率的。bert-base-uncased有110M参数，12头多注意力头，词向量长度是768，由嵌入器和12层transformer编码器组成。
+我们用预训练模型bert-base-uncased，在尾端接上一层全连接层作为输出层。在此之前，我们试过bert的一系列模型，包括bert-base-cased, bert-large-uncased等，结果是bert-base-uncased是最有效率的。bert-base-uncased有110M参数，12头多注意力头，词向量长度是768，由嵌入器和12层transformer编码器组成。
 1 数据预处理：
 从huggingface上下载预训练模型后，我们得到了两个工具，分别是tokenizer和bert。我们用tokenizer可以一键预处理数据。在bert-base-uncased中，经过tokenizer，文本的头和尾分别被添加上特殊符号[CLS]和[SEP]，并子词切割，最终将会得到数字序列。
 2文本向量化:
@@ -22,14 +20,12 @@
 把bert作为骨干，拿到[CLS]上的对应输出，接上全连接层和Softmax激活函数作为输出层，输出将会是规模为2的向量，分别对应推文与真实灾难无关和有关的概率。在向量的2个数字中，我们选出最大的一个数字的对应的标签作为预测。
 4训练:
 我们冻结bert骨干，而只优化输出前的几层全连接层。我们用交叉熵损失函数和Adam优化器。
-代码写在“代码一”文件夹中。
  ![image](https://github.com/cysen77/DisasterDetection/assets/86369829/9d71ec62-cde7-4272-9ffb-401ee9e7475c)
 
 	
 四、	结果展示
-1 代码一，使用预训练的bert网络模型和分词器：
- 
-运用预训练模型，我们又快又准地完成任务。
+ ![image](https://github.com/cysen77/DisasterDetection/assets/86369829/9497ab1c-fce2-4ae9-a994-db53f6ba31cd)
+
 五、	细节
 在数据上，由于课程是自然语言处理，所以我们只去关注文本text这一特征。我们的数据清洗包括把特殊字符删去、把缩合拆开、处理用户名和俗语和错别字和删除链接。例子如下。用到python库re。
 清洗前	清洗后	清洗前	清洗后
