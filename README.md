@@ -1,7 +1,11 @@
 # DisasterDetection
 
 references https://www.kaggle.com/code/gunesevitan/nlp-with-disaster-tweets-eda-cleaning-and-bert
+
 部分代码数据清洗的代码参照了以上链接
+
+代码再disasterdetection.ipynb
+
 
 一、	小组成员
 蔡宇生 和另外两位
